@@ -32,7 +32,7 @@ class consul_template (
   $version           = $consul_template::params::version,
   $install_method    = $consul_template::params::install_method,
   $os                = $consul_template::params::os,
-  $download_url      = "https://github.com/hashicorp/consul-template/releases/download/v${version}/consul-template_${version}_${os}_${arch}.tar.gz",
+  $download_url      = undef,
   $package_name      = $consul_template::params::package_name,
   $package_ensure    = $consul_template::params::package_ensure,
   $config_dir        = '/etc/consul-template',
@@ -48,6 +48,12 @@ class consul_template (
 ) inherits ::consul_template::params {
 
   validate_bool($purge_config_dir)
+  if $download_url == undef {
+    $download_url_real = "https://github.com/hashicorp/consul-template/releases/download/v${version}/consul-template_${version}_${os}_${arch}.tar.gz"
+  } else {
+    $download_url_real = $download_url
+  }
+
 
   class { '::consul_template::install': } ->
   class { '::consul_template::config':

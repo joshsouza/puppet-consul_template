@@ -20,7 +20,7 @@ class consul_template::install {
       ensure_packages(['tar'])
     }
     staging::file { 'consul-template.tar.gz':
-      source => $consul_template::download_url
+      source => $consul_template::download_url_real
     } ->
     staging::extract { 'consul-template.tar.gz':
       target  => $consul_template::bin_dir,
