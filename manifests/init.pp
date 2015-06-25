@@ -45,6 +45,7 @@ class consul_template (
   $consul_retry      = '10s',
   $init_style        = $consul_template::params::init_style,
   $log_level         = $consul_template::params::log_level,
+  $install_dir       = '/usr/local/consul-template',
 ) inherits ::consul_template::params {
 
   validate_bool($purge_config_dir)
